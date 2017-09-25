@@ -1,0 +1,89 @@
+﻿<Page
+    x:Class="Sentiment.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sentiment"
+    xmlns:ctl="using:Sentiment.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="webCamHostGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        
+        <ctl:CameraControl x:Name="cameraControl" Grid.Row="0"/>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+
+            <RichTextBlock x:Name="textDisplay"
+                Grid.Column="0"
+                Height="Auto"
+                Width="500"
+                HorizontalAlignment="Left"/>
+
+            <Border Background="White"
+                    x:Name="faceDescriptionContainer"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Width="200"
+                    Visibility="Collapsed">
+                <TextBlock x:Name="faceDescription"
+                       Height="Auto"
+                       HorizontalAlignment="Left"
+                       ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            </Border>
+
+            <ListView x:Name="emotionList"
+                  Grid.Column="1"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  ItemsSource="{x:Bind ViewModel.Emotions}"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBox x:Name="textEditor"
+                 HorizontalAlignment="Stretch"
+                 Grid.Column="0"
+                 VerticalAlignment="Top"/>
+
+            <Border Background="White"
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch">
+                <TextBlock x:Name="statusText" 
+                           FontSize="30"
+                           Foreground="Red"/>
+            </Border>
+
+            <Grid Grid.Column="1"
+                  Margin="20,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ToggleSwitch Header="Running" 
+                              Grid.Row="0"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Top"
+                      
+                      IsOn="{x:Bind ViewModel.IsRunning, Mode=TwoWay}"/>
+
+                <Button Content="Debug"
+                        Grid.Row="1"
+                        Click="Debug_Click"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
